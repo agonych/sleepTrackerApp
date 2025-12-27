@@ -4,12 +4,14 @@
 
 const express = require('express');
 const homeRoutes = require('./homeRoutes');
+const apiRoutes = require('./apiRoutes');
 
 // Create a new router instance
 const router = express.Router();
 
 // Mount route handlers
 router.use('/', homeRoutes);
+router.use('/api', apiRoutes);
 
 module.exports = router;
 
