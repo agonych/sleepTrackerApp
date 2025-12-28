@@ -1,3 +1,4 @@
+require("dotenv").config();
 /**
  * Alive Sleep Tracker Application
  * Entry point for the server.
