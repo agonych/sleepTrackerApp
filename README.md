@@ -40,7 +40,6 @@ public/
 ├── img/                 # Image assets
 ├── css/                 # Stylesheets
 └── js/                  # JavaScript files
-
 src/
 ├── controllers/         # Application logic
 ├── helpers/             # Utility functions (DB, Auth0, config)
@@ -50,21 +49,19 @@ src/
 ├── views/               # EJS templates and components
 ├── app.js               # Express app factory
 └── server.js            # Server bootstrap
-
 tests/
 ├── helpers/             # Test utilities
 ├── integration/         # Integration test suites
 └── unit/                # Unit test suites
-
+api/                     # Serverless API function for Vercel
 docs/                    # Supporting documentation
-
 .github/                 # GitHub actions
-
 .env.example             # Example environment variables
 .gitignore               # Git ignore rules
 README.md                # Project documentation
 package.json             # Project metadata and dependencies
 package-lock.json        # Locked dependencies
+vercel.json              # Vercel deployment configuration
 ```
 
 ## Application Architecture

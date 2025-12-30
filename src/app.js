@@ -1,5 +1,6 @@
 /**
  * Builds and configures the Express application instance
+ * This app is used in both local server and serverless environments
  */
 
 const path = require('path');
