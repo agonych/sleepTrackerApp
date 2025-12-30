@@ -43,6 +43,10 @@ jobs:
     # Set environment variable for MongoDB connection
     env:
       MONGODB_URI: mongodb://localhost:27017/test
+      AUTH0_ISSUER_BASE_URL: ${{ secrets.AUTH0_ISSUER_BASE_URL }}
+      AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
+      AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
+      AUTH0_SECRET: ${{ secrets.AUTH0_SECRET }}
 
     # Steps to run the test suite
     steps:
