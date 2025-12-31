@@ -2,8 +2,8 @@ const contentful = require('contentful');
 
 // Initialise the Client
 const client = contentful.createClient({
-  space: process.env.CONTENTFUL_SPACE_ID,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
+  space: process.env.CONTENTFUL_SPACE_ID || 'test-space-id',
+  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || 'test-access-token'
 });
 
 const getArticles = async () => {
