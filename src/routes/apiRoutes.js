@@ -14,5 +14,3 @@ router.use(apiControllers.apiNotFound);
 router.use(apiControllers.apiError);
 
 module.exports = router;
-
-
