@@ -442,3 +442,27 @@ Before submitting your code, please run the following commands:
 
 # Recommended VS Code Setup
 For the best experience, install the ESLint and Prettier extensions. We recommend enabling "Format on Save" in your settings so that your code snaps to the ALIVE style guide automatically every time you save your work.
+
+# Record new sleep entry
+The backend now supports recording daily sleep entries with automatic duration calculation and quality mapping.
+
+# API Specification
+- Endpoint: POST /recordsleep
+- Purpose: Validates and stores sleep session data in MongoDB.
+- Request Body (JSON):
+
+      {
+        "startTime": "YYYY-MM-DDTHH:MM:SS",
+        "endTime": "YYYY-MM-DDTHH:MM:SS",
+        "quality": "good | poor | missed"
+      }
+
+# Core Logic & Validation
+- Duration Calculation: The server automatically calculates the hours slept based on the difference between startTime and endTime.
+
+- Quality Mapping: Maps string inputs (good, poor, missed) to the numerical rating required by the SleepEntry schema.
+
+- Error Handling: Implemented try/catch blocks to ensure a 500 Internal Server Error is returned during database failures instead of a system crash.
+
+# Verification
+Tested extensively via Postman to ensure a 201 Created status and successful MongoDB document creation (verified by the return of a unique _id).
