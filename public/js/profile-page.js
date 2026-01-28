@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-
+    
+    // Load all announcements for user
     let currentPage = 1;
     let totalPages = 1;
     const entriesPerPage = 10;
