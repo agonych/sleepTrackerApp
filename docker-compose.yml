@@ -1,0 +1,35 @@
+# Docker Compose configuration for the Alive Sleep Tracker application
+
+# Deployment services
+services:
+  # Alive Sleep Tracker application service
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file: .env
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/alive-sleep-tracker
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # MongoDB service
+  mongodb:
+    image: mongo:8.2.4
+    expose:
+      - "27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+
+# Volume for MongoDB data persistence
+volumes:
+  mongodb_data:

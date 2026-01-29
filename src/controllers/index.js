@@ -13,6 +13,7 @@ const scheduleController = require('./scheduleController');
 const goalController = require('./goalController');
 const insightsController = require('./insightsController');
 const deleteUserController = require('./deleteUserController');
+const studentController = require('./studentController');
 
 module.exports = {
   apiControllers,
@@ -27,4 +28,5 @@ module.exports = {
   goalController,
   insightsController,
   deleteUserController,
+  studentController,
 };

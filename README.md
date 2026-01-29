@@ -20,6 +20,7 @@ to manage configuration across environments securely.
 - [Auth0 Integration](#auth0-integration)
 - [Environment Variables](#environment-variables)
 - [How to Run](#how-to-run)
+- [Running the application in Docker](#running-the-application-in-docker)
 - [Version Control Practices](#version-control-practices)
 
 # Technologies Used
@@ -565,6 +566,129 @@ with the following keys:
    node server.js
    ```
 5. Open the application in a browser at `http://localhost:3000`
+
+# Running the application in Docker
+
+This section describes how to run the Alive Sleep Tracker in Docker using 
+provided configuration files.
+
+## Overview
+
+The deployment consists of **two containers**:
+
+1. **App** — the Node.js/Express application.
+2. **MongoDB** — the Mongo database. 
+
+Both are defined in `docker-compose.yml` and start together. The 
+application exposes port `3000` on the host machine, and can be acessed 
+externally. The MongoDB container is only accessible from the app container 
+via intenrnal Docker networking.
+
+## Before running
+
+You must create a `.env` file in the project root and provide the required 
+information. To begin you can copy the `.env.example` file and edit it.
+
+### Auth0 setup
+
+The app uses Auth0 for login and registration. You need an Auth0 application 
+and its credentials in `.env`. 
+
+1. Sign up or log in at [Auth0](https://auth0.com/).
+2. In the Auth0 Dashboard, go to **Applications** → **Applications** → **Create Application**.
+3. Choose **Regular Web Application** and create it.
+4. In the application settings, capture:
+   - **Domain** - domain of your Auth0 tenant (e.g. `YOUR-TENANT.us.auth0.com`).
+   - **Client ID**. - the application client ID.
+   - **Client Secret**. - the application client secret.
+5. Under **Application URIs** set:
+   - **Allowed Callback URLs**: `http://localhost:3000/auth/callback`
+   - **Allowed Logout URLs**: `http://localhost:3000`
+   - **Allowed Web Origins**: `http://localhost:3000`
+6. In `.env` set:
+   - `AUTH0_ISSUER_BASE_URL=https://YOUR-TENANT.us.auth0.com`
+   - `AUTH0_CLIENT_ID=your-client-id`
+   - `AUTH0_CLIENT_SECRET=your-client-secret`
+   - `AUTH0_SECRET=any-long-random-string-for-session-secret` (a long random 
+     string used by the app to encrypt session cookies). 
+
+Without valid Auth0 settings in place, login and protected routes will not work.
+
+### Contentful (optional)
+
+Used for CMS-driven content (articles in insights section). If you skip it, the 
+app will run with placeholder content.
+
+1. Create a free account at [Contentful](https://www.contentful.com/).
+2. Create a new or select existing space and capture **Space ID** and **Content 
+   Delivery API – access token** from **Settings** → **API keys**.
+3. In `.env` set `CONTENTFUL_SPACE_ID` and `CONTENTFUL_ACCESS_TOKEN`.
+
+he app expects a content type **`articles`** with the following fields:
+
+| Field         | Type                                   | Description                         |
+|---------------|----------------------------------------|-------------------------------------|
+| `title`       | Short text, represents the Entry title | Article title.                      |
+| `slug`        | Short text, slug, generate from title  | URL-friendly identifier             |
+| `author`      | Short text                             | Author name.                        |
+| `date`        | Date & time                            | Publication date                    |
+| `readTime`    | Short text                             | e.g. `5 min read`.                  |
+| `excerpt`     | Long text                              | Short summary for listing.          |
+| `coverImage`  | Media (image)                          | Aricle Illustration                 |
+| `bodyContent` | Rich text                              | Full article body                   |
+| `tags`        | Short text (list)                      | e.g. `Sleep Science`, `Wellness`.   |
+
+A few articles should be created for the insights section to display properly.
+
+### Open AI (optional)
+
+Used for AI-generated sleep insights. If you skip it, AI features won't work.
+
+1. Create an API key at [OpenAI](https://platform.openai.com/api-keys).
+2. In `.env` set `OPENAI_API_KEY=your-key`.
+
+### DB encryption key (otional)
+Set `ENCRYPTION_KEY` in `.env` to a long random string. This is used to hash
+Auth0 user identifiers before storing them in the database. If you skip it, a
+default development key will be used, which isn't recommended for production.
+
+## How to run the app
+
+From the project root (where `docker-compose.yml` is) run:
+
+```bash
+docker compose up -d
+```
+
+To build and start in the foreground (with logs in the terminal), run:
+
+```bash
+docker compose up --build
+```
+
+## Port and access
+
+- The app will be available at **http://localhost:3000**.
+- Open that URL in a browser to use the application. Use 
+  **http://localhost:3000/auth/login** to sign in via Auth0 and access 
+  protected features.
+- To access the student API endpoint, use 
+  **http://localhost:3000/api/student**. This endpoint is public and does 
+  not require authentication. It will return a JSON object:
+ ```json
+  {
+    "name": "Andrej Kudriavcev",
+    "studentId": "224939307"
+  }
+  ```
+
+To stop the deployment, run:
+
+```bash
+docker compose down
+```
+
+To also remove the database data volume: `docker compose down -v`.
 
 # Version Control Practices
 

@@ -10,6 +10,7 @@ const apiGoalRoutes = require('./apiGoalRoutes');
 const apiMessageRoutes = require('./apiMessageRoutes');
 const apiInsightsRoutes = require('./apiInsightsRoutes');
 const apiDeleteUserRoutes = require('./apiDeleteUserRoutes');
+const apiStudentRoutes = require('./apiStudentRoutes');
 const { apiControllers } = require('../controllers');
 const router = express.Router();
 
@@ -25,6 +26,7 @@ router.use('/goal', apiGoalRoutes);
 router.use('/messages', apiMessageRoutes);
 router.use('/insights', apiInsightsRoutes);
 router.use('/delete-user', apiDeleteUserRoutes);
+router.use('/student', apiStudentRoutes);
 
 // Catch-all for unknown API routes
 router.use(apiControllers.apiNotFound);
