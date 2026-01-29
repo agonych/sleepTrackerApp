@@ -624,19 +624,19 @@ app will run with placeholder content.
    Delivery API – access token** from **Settings** → **API keys**.
 3. In `.env` set `CONTENTFUL_SPACE_ID` and `CONTENTFUL_ACCESS_TOKEN`.
 
-he app expects a content type **`articles`** with the following fields:
+The app expects a content type **`articles`** with the following fields:
 
-| Field         | Type                                   | Description                         |
-|---------------|----------------------------------------|-------------------------------------|
-| `title`       | Short text, represents the Entry title | Article title.                      |
-| `slug`        | Short text, slug, generate from title  | URL-friendly identifier             |
-| `author`      | Short text                             | Author name.                        |
-| `date`        | Date & time                            | Publication date                    |
-| `readTime`    | Short text                             | e.g. `5 min read`.                  |
-| `excerpt`     | Long text                              | Short summary for listing.          |
-| `coverImage`  | Media (image)                          | Aricle Illustration                 |
-| `bodyContent` | Rich text                              | Full article body                   |
-| `tags`        | Short text (list)                      | e.g. `Sleep Science`, `Wellness`.   |
+| Field         | Type                                   | Description                      |
+|---------------|----------------------------------------|----------------------------------|
+| `title`       | Short text, represents the entry title | Article title                    |
+| `slug`        | Short text, slug, generate from title  | URL-friendly identifier          |
+| `author`      | Short text                             | Author name                      |
+| `date`        | Date & time                            | Publication date                 |
+| `readTime`    | Short text                             | e.g. `5 min read`                |
+| `excerpt`     | Long text                              | Short summary for listing        |
+| `coverImage`  | Media (image)                          | Aricle Illustration              |
+| `bodyContent` | Rich text                              | Full article body                |
+| `tags`        | Short text (list)                      | e.g. `Sleep Science`, `Wellness` |
 
 A few articles should be created for the insights section to display properly.
 
